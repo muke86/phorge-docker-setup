@@ -1,0 +1,30 @@
+version: "3.7"
+services:
+  mariadb:
+    image: mariadb:10.5
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: verysecret
+      MYSQL_DATABASE: phorgedb
+      MYSQL_USER: phorge
+      MYSQL_PASSWORD: phorgepass
+    volumes:
+      - ./data/mysql:/var/lib/mysql
+
+  phorge:
+    build: .
+    restart: unless-stopped
+    depends_on:
+      - mariadb
+    environment:
+      MYSQL_HOST: mariadb
+      MYSQL_PORT: 3306
+      MYSQL_DATABASE: phorgedb
+      MYSQL_USER: phorge
+      MYSQL_PASSWORD: phorgepass
+      PHORGE_BASE_URI: http://localhost:8089
+    ports:
+      - "8089:80"
+    volumes:
+      - ./data/repos:/var/www/phorge/repos
+      - ./data/files:/var/www/phorge/files

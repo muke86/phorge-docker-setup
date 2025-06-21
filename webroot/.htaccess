@@ -1,0 +1,10 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine on
+
+  # Root (/) → index.php?__path__=/
+  RewriteRule ^$ index.php?__path__=/ [B,L,QSA]
+
+  # Alles andere → index.php?__path__=/$1
+  RewriteRule ^(.*)$ index.php?__path__=/$1 [B,L,QSA]
+</IfModule>
+
