@@ -12,6 +12,7 @@ RUN apt-get update && apt-get install -y \
     libonig-dev \
     libzip-dev \
     libicu-dev \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install pdo_mysql mysqli gd intl zip opcache pcntl \
     && pecl install apcu \
     && docker-php-ext-enable apcu
