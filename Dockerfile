@@ -16,7 +16,7 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install pdo_mysql mysqli gd intl zip opcache pcntl \
     && pecl install apcu \
     && docker-php-ext-enable apcu \
-    apt-get install -y python3-pygments 
+    && python3-pygments 
 
 
 # Composer installieren
